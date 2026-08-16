@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import './EditProfile.css';
 
 const EditProfile = () => {
-    const id = getUser()._id;
+    const user = getUser();
+    const id = user ? user._id : null;
     const levels = [
         "Pri 1", "Pri 2", "Pri 3", "Pri 4", "Pri 5", "Pri 6",
         "Sec 1", "Sec 2", "Sec 3", "Sec 4",
@@ -23,6 +24,7 @@ const EditProfile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!id) return;
         const fetchMe = async () => {
             try {
                 const response = await myDetails(id);
@@ -76,9 +78,8 @@ const EditProfile = () => {
             alert('Success!');
             navigate('/profile', { replace: true });
         } catch (error) {
-            console.log(error);
+            alert(error.message);
         }
-        console.log(updatedProfile);
     }
 
     return (
@@ -153,10 +154,9 @@ const EditProfile = () => {
                             id='showProfile'
                             type='checkbox'
                             checked={updatedProfile.showProfile}
-                            onChange={(e) => {
-                                updatedProfile.showProfile = e.target.checked;
-                                setUpdatedProfile({ ...updatedProfile });
-                            }}
+                            onChange={(e) =>
+                                setUpdatedProfile({ ...updatedProfile, showProfile: e.target.checked })
+                            }
                         />
                     </div>
                     <button type='submit' className='submit-button'>Save</button>
