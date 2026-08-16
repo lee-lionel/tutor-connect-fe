@@ -36,25 +36,35 @@ const SearchPage = (props) => {
     const applicant = {
       id: currentUser._id,
       name: currentUser.name
-    } 
-   
+    }
+
     try {
       await tutorApplication(postId, applicant)
     } catch (error) {
       alert(error)
     }
-    
   }
 
   return (
     <div className="search-page-container">
-      <input
-        className="search-input"
-        placeholder="for u to search"
-        type="search"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
+      <div className="search-bar">
+        <input
+          className="search-input"
+          placeholder={props.type === "parent" ? "Search tutors by name, subject or location" : "Search posts by title, subject, level or location"}
+          type="search"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        <p className="search-count">
+          {displaySearch.length} {displaySearch.length === 1 ? "result" : "results"}
+        </p>
+      </div>
+
+      {displaySearch.length === 0 && (
+        <p className="search-empty">
+          {searchTerm ? `No matches for "${searchTerm}".` : "Nothing to show here yet."}
+        </p>
+      )}
 
       {displaySearch.map((item, index) => {
         if (props.type === "parent") {
@@ -66,13 +76,13 @@ const SearchPage = (props) => {
         } else if (props.type === "tutor") {
           const hasApplied = item.applicants.some(applicant => applicant.id === currentUser._id);
           return (
-            <div className="post-card" key={index}>
-              <div className={hasApplied ? 'applied-post' : ''}>
-                <PostCard post={item} role={props.type}/>
-                {!hasApplied && (
-                  <button className="apply-button" onClick={() => handleApplication(item._id)}>Apply</button>
-                )}
-              </div>
+            <div className={`post-card ${hasApplied ? 'applied-post' : ''}`} key={index}>
+              <PostCard post={item} role={props.type}/>
+              {hasApplied ? (
+                <p className="applied-badge">Applied</p>
+              ) : (
+                <button className="apply-button" onClick={() => handleApplication(item._id)}>Apply</button>
+              )}
             </div>
           );
         } else {

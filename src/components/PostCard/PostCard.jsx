@@ -15,31 +15,56 @@ const PostCard = (props) => {
   };
 
   return (
-    <div>
-      <p className="post-title">Title: {post.title}</p>
-      <p className="post-info">Posted By: {post.createdBy.name}</p>
-      <p className="post-info">Subjects: {post.subjects.join(", ")}</p>
-      <p className="post-info">Level: {post.level}</p>
-      <p className="post-info">Location: {post.location}</p>
- 
+    <div className="post-card-body">
+      <h3 className="post-title">{post.title}</h3>
+
+      <dl className="post-meta">
+        <div className="post-meta-row">
+          <dt>Posted By</dt>
+          <dd>{post.createdBy.name}</dd>
+        </div>
+        <div className="post-meta-row">
+          <dt>Level</dt>
+          <dd>{post.level}</dd>
+        </div>
+        <div className="post-meta-row">
+          <dt>Location</dt>
+          <dd>{post.location}</dd>
+        </div>
+      </dl>
+
+      <div className="post-subjects">
+        {post.subjects.map((subject, idx) => (
+          <span key={idx} className="tag">{subject}</span>
+        ))}
+      </div>
+
       {role === 'parent' && (
         <div className="applicants-section">
-          <h3>Applicants:</h3>
+          <h4 className="applicants-title">Applicants</h4>
           {post.applicants.length > 0 ? (
-            post.applicants.map((app, idx) => (
-              <div key={idx} className="applicant">
-                <div className="applicant-name" onClick={() => handleApplicantClick(app.id)}>
+            <div className="applicants-list">
+              {post.applicants.map((app, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className="applicant-name"
+                  onClick={() => handleApplicantClick(app.id)}
+                >
                   {app.name}
-                </div>
-                {showProfile === app.id && (
-                  <div className="profile-card-2">
-                  <Stalking id={app.id} onClose={handleProfileClose} />
-                  </div>
-                )}
-              </div>
-            ))
+                </button>
+              ))}
+            </div>
           ) : (
-            <p>-NA-</p>
+            <p className="applicants-empty">No applicants yet</p>
+          )}
+
+          {showProfile && (
+            <div className="modal-backdrop" onClick={handleProfileClose}>
+              <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <Stalking id={showProfile} onClose={handleProfileClose} />
+              </div>
+            </div>
           )}
         </div>
       )}

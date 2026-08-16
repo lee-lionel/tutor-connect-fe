@@ -39,7 +39,6 @@ const SignUp = (props) => {
   return (
     
     <form className='signup-form' onSubmit={handleSubmit}>
-      <h2>Tutors Connect</h2>
       <div className="input-group">
       <label>
         Name :<input name='name' type="text" onChange={handleChange}></input>

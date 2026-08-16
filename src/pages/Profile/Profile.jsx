@@ -69,30 +69,39 @@ const Profile = () => {
 
   return (
     <div className="content-container">
-      <h1>My Profile: </h1>
+      <h1>My Profile</h1>
       <div className="profile-card">
-      <ProfileCard profile={me} role={role} />
-      {role === 'tutor' ? (
-        <Link to='/edit-profile'><button className='edit-button'>Edit Info</button></Link>
-      ) : role === 'parent' ? (
-        <Link to='/create-post'><button className='create-button'>Create Post</button></Link>
-      ) : null}
-      </div>
-      <div style={{ display: role === 'parent' ? 'block' : 'none' }}>
-        <h1> My Posts: </h1>
-        {myPosts.map((post) => (
-          <div className="post-card" key={post._id}>
-            <div className='post-info'>
-            <PostCard post={post} role={role} />
-            </div>
-            {/* <input
-            type='checkbox'
-            checked={post.foundTutor}
-            onChange={()=>handleEdit(post._id)}
-            /> */}
-            <button className='delete-button' onClick={() => handleDelete(post._id)}>Delete</button>
+        <ProfileCard profile={me} role={role} />
+        {role === 'tutor' ? (
+          <div className='profile-actions'>
+            <Link to='/edit-profile' className='edit-button'>Edit Info</Link>
           </div>
-        ))}
+        ) : role === 'parent' ? (
+          <div className='profile-actions'>
+            <Link to='/create-post' className='create-button'>Create Post</Link>
+          </div>
+        ) : null}
+      </div>
+
+      <div style={{ display: role === 'parent' ? 'block' : 'none' }}>
+        <h1 className='profile-posts-heading'>My Posts</h1>
+        {myPosts.length === 0 ? (
+          <p className='profile-posts-empty'>You haven't created any posts yet.</p>
+        ) : (
+          myPosts.map((post) => (
+            <div className="post-card" key={post._id}>
+              <PostCard post={post} role={role} />
+              {/* <input
+              type='checkbox'
+              checked={post.foundTutor}
+              onChange={()=>handleEdit(post._id)}
+              /> */}
+              <div className='post-actions'>
+                <button className='delete-button' onClick={() => handleDelete(post._id)}>Delete</button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
