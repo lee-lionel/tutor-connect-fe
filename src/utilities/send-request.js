@@ -1,4 +1,4 @@
-import { getToken } from './users-service';
+import { getToken, logOut } from './users-service';
 
 export default async function sendRequest(url, method = 'GET', payload = null) {
   const options = { method };
@@ -11,10 +11,19 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
     options.headers = options.headers || {};
     options.headers.Authorization = `Bearer ${token}`;
   }
+
   const res = await fetch(url, options);
   if (res.ok) return res.json();
-  else {
-    const error = await res.json()
-    throw new Error(error.message);
+
+  /* A 401 on a request we authenticated means the token is no longer good,
+     so drop it and return to the sign-in screen. Requests sent without a
+     token — signing in, signing up — are excluded, or a wrong password would
+     reload the page instead of showing its error. */
+  if (res.status === 401 && token) {
+    logOut();
+    window.location.reload();
   }
+
+  const error = await res.json().catch(() => ({}));
+  throw new Error(error.message || `Request failed (${res.status})`);
 }

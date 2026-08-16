@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import { subjects } from "../../utilities/subject";
 import { createPost } from "../../utilities/api";
-import { getUser } from "../../utilities/users-service";
 import { useNavigate } from "react-router-dom";
 import "./CreatePost.css";
 
 const CreatePost = () => {
-  const user = {
-    id: getUser()._id,
-    name: getUser().name,
-  };
-
+  // Authorship is taken from the token server-side, so the form no longer
+  // sends createdBy — and no longer dereferences a possibly-null user.
   const [userInput, setUserInput] = useState({
-    createdBy: user,
     title: "",
     subjects: [],
     level: "Pri 1",
@@ -39,9 +34,7 @@ const CreatePost = () => {
     e.preventDefault();
     try {
       await createPost(userInput);
-      alert('Post created!');
       setUserInput({
-        createdBy: user,
         title: "",
         subjects: [],
         level: "Pri 1",
@@ -49,7 +42,7 @@ const CreatePost = () => {
       });
       navigate('/profile', { replace: true });
     } catch (error) {
-      console.log(error);
+      alert(error.message);
     }
   }
 

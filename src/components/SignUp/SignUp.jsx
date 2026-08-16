@@ -16,10 +16,11 @@ const SignUp = (props) => {
 
   function handleChange(e) {
     const inputValue = e.target.value
-    if (e.target.name == 'phoneNumber') {
-        if(inputValue.length <=8) {
-            setUserInput({ ...userInput, phoneNumber: inputValue });
-        }      
+    if (e.target.name === 'phoneNumber') {
+        // Digits only, max 8 — the schema requires exactly 8 characters, and
+        // type="number" would otherwise let through 'e', '+' and '-'.
+        const digits = inputValue.replace(/\D/g, '').slice(0, 8);
+        setUserInput({ ...userInput, phoneNumber: digits });
     } else {
     setUserInput({ ...userInput, [e.target.name]: inputValue });
     }
@@ -27,12 +28,17 @@ const SignUp = (props) => {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    if (userInput.phoneNumber.length !== 8) {
+      return alert('Enter an 8 digit phone number')
+    }
+    if (userInput.password.length < 5) {
+      return alert('Password must be at least 5 characters')
+    }
     try {
         const user = await userApi.signUp(userInput)
         setUser(user)
     } catch(error){
-      alert(error)
-        console.log(error)
+        alert(error.message)
     }
   }
   
@@ -58,11 +64,14 @@ const SignUp = (props) => {
       <label>
         Phone No : +65
         <input
-            name="phoneNumber"
-          type="number"
+          name="phoneNumber"
+          type="tel"
           inputMode="numeric"
+          autoComplete="tel"
+          placeholder="8 digits"
           value={userInput.phoneNumber}
           onChange={handleChange}
+          required
         ></input>
       </label>
       </div>

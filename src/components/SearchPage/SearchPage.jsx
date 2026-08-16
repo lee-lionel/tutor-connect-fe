@@ -33,15 +33,14 @@ const SearchPage = (props) => {
   }
 
   async function handleApplication(postId) {
-    const applicant = {
-      id: currentUser._id,
-      name: currentUser.name
-    }
-
     try {
-      await tutorApplication(postId, applicant)
+      // The server takes the applicant from the token; no body needed.
+      await tutorApplication(postId)
+      // Refresh so the Apply button becomes the "Applied" badge without
+      // needing a page reload.
+      if (props.onRefresh) await props.onRefresh()
     } catch (error) {
-      alert(error)
+      alert(error.message)
     }
   }
 
@@ -74,7 +73,8 @@ const SearchPage = (props) => {
             </div>
           );
         } else if (props.type === "tutor") {
-          const hasApplied = item.applicants.some(applicant => applicant.id === currentUser._id);
+          const hasApplied = Boolean(currentUser) &&
+            item.applicants.some(applicant => String(applicant.id) === String(currentUser._id));
           return (
             <div className={`post-card ${hasApplied ? 'applied-post' : ''}`} key={index}>
               <PostCard post={item} role={props.type}/>

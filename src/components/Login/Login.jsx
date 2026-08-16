@@ -18,8 +18,7 @@ const Login = (props) => {
             const user = await userApi.login(userInput)
             setUser(user)
         } catch(error){
-          alert(error)
-            console.log(error)
+            alert(error.message)
         }
     }
   return (

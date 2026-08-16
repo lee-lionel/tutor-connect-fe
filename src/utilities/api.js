@@ -33,8 +33,9 @@ export function createPost(userInput) {
     return sendRequest(`${BASE_URL}/posts/create`, 'POST', userInput)
 }
 
-export function tutorApplication(postId, applicantId) {
-    return sendRequest(`${BASE_URL}/posts/tutor-apply/${postId}`, 'PUT', applicantId)
+// The applicant is taken from the verified token server-side.
+export function tutorApplication(postId) {
+    return sendRequest(`${BASE_URL}/posts/tutor-apply/${postId}`, 'PUT', {})
 }
 
 export function getMyPosts(userId) {
@@ -43,4 +44,8 @@ export function getMyPosts(userId) {
 
 export function deletePost(postId) {
     return sendRequest(`${BASE_URL}/posts/delete/${postId}`,'DELETE')
+}
+
+export function updatePostStatus(postId, foundTutor) {
+    return sendRequest(`${BASE_URL}/posts/update/${postId}`, 'PUT', { foundTutor })
 }
