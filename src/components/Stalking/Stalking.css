@@ -1,19 +1,30 @@
+/* Stalking — a viewed tutor's profile, rendered inside the PostCard modal. */
+
 .stalking-container {
-    position: relative;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: -5%;
-    right: 0.1%;
-    background: transparent;
-    border: none;
-    color: #000;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .close-button:hover {
-    color: blue; /* Change color on hover if needed */
-  }
-  
+  position: relative;
+  padding-right: var(--space-6); /* keep text clear of the close button */
+}
+
+.close-button {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--text-lg);
+  line-height: 1;
+  color: var(--text-muted);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.close-button:hover {
+  color: var(--danger-600);
+  background-color: var(--danger-50);
+}

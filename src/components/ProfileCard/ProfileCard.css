@@ -1,68 +1,127 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-  }
-  
-  .profile-card {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-  
-  .profile-name,
-  .profile-email {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  
-  .tutor-info {
-    margin-top: 20px;
-  }
-  
-  .profile-experience,
-  .profile-section-title,
-  .profile-location {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-  }
-  
-  .profile-subjects,
-  .profile-levels {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-content: center;
-  }
-  
-  .profile-subject,
-  .profile-level {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    text-align: center;
-    height: 100%; /* Ensure it takes the full height of its container */
-  }
-  
-  /* Optional: Ensure the parent containers have sufficient height */
-  .profile-subjects, .profile-levels {
-    min-height: 40px; /* Adjust as needed */
-  }
-  
-  /* Reset potential conflicting styles */
-  html, body {
-    height: 100%;
-  }
-  
+/* ProfileCard contents.
+   Global resets and the card surface live in index.css — a component
+   stylesheet shouldn't be restyling * or body. */
+
+.profile-card-body {
+  text-align: left;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand-500), var(--brand-700));
+  border-radius: var(--radius-full);
+}
+
+.profile-identity {
+  min-width: 0;
+  flex: 1;
+}
+
+.profile-name {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+
+.profile-email {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  overflow-wrap: break-word;
+}
+
+.profile-role {
+  flex-shrink: 0;
+  padding: 0.2rem 0.65rem;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-700);
+  background-color: var(--brand-50);
+  border-radius: var(--radius-full);
+}
+
+.tutor-info {
+  margin-top: var(--space-4);
+}
+
+.profile-experience {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.profile-stat-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--brand-600);
+}
+
+.profile-stat-label {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.profile-section-title {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.profile-subjects,
+.profile-levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.profile-subject,
+.profile-level {
+  padding: 0.25rem 0.7rem;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+.profile-subject {
+  color: var(--brand-700);
+  background-color: var(--brand-50);
+  border: 1px solid var(--brand-100);
+}
+
+.profile-level {
+  color: var(--text-muted);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+}
+
+.profile-location {
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.profile-none {
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+}

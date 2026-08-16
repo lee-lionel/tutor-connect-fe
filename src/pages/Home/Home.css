@@ -1,34 +1,69 @@
-.content-container {
-    margin-top: 60px; /* Adjust this value based on the height of your Navbar */
-    padding: 20px;
-  }
-  
-  .content-container h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .content-container p {
-    margin-bottom: 20px;
-  }
-  
-  .content-container h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .content-container ul {
-    list-style: none; /* Remove default list styles */
-    padding-left: 0; /* Remove default left padding */
-  }
-  
-  .content-container li {
-    margin-bottom: 10px;
-    /* Other styles for list items */
-  }
-  
-  
-  .content-container strong {
-    font-weight: bold;
-  }
-  
+/* Home / landing page.
+   The .content-container page shell is defined globally in index.css. */
+
+.home-hero {
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+  background: linear-gradient(135deg, var(--brand-600), var(--brand-700));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  color: #fff;
+}
+
+.home-eyebrow {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-200);
+}
+
+.home-title {
+  font-size: var(--text-3xl);
+  color: #fff;
+  margin-bottom: var(--space-3);
+}
+
+.home-lede {
+  max-width: 52ch;
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.home-section {
+  margin-bottom: var(--space-6);
+}
+
+.home-section-title {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-xl);
+}
+
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+  list-style: none; /* Remove default list styles */
+  padding-left: 0; /* Remove default left padding */
+}
+
+.home-feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-500);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.home-feature strong {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text);
+}

@@ -1,7 +1,9 @@
+/* Create post form.
+   Shares the form primitives defined in index.css with EditProfile;
+   only the title field needs anything extra here. */
+
 .form-group .title {
-  width: calc(100% - 20px);
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  width: 100%;
+  font-size: var(--text-lg);
+  font-weight: 600;
 }

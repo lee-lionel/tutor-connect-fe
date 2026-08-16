@@ -1,77 +1,128 @@
-.post-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 20px 0;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .post-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .post-info {
-    font-size: 1em;
-    margin-bottom: 10px;
-  }
-  
-  .applicants-section {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-content: center;
-  }
-  
-  .applicant {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-content: center;
-  }
-  
-  .applicant-name {
-     font-size: 1em;
-    color: #007bff;
-    cursor: pointer;
-    text-decoration: underline; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    text-align: center;
-    height: 100%; 
-  }
-  
-  .applicant-name:hover {
-    color: #0056b3;
-  }
-  
-  .applicant-name:active {
-    color: #003d80;
-  }
+/* PostCard — the card surface itself is supplied by the wrapping
+   .post-card element (see index.css); this styles the contents. */
 
-  .profile-card-2 {
-    position: absolute;
-    top: 30%; /* Adjust this value as needed */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%);
-    z-index: 1000; /* Ensure it appears above other content */
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
+.post-card-body {
+  text-align: left;
+}
 
-  
+.post-title {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.post-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+}
+
+.post-meta-row dt {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.post-meta-row dd {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.post-subjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tag {
+  padding: 0.25rem 0.7rem;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--brand-700);
+  background-color: var(--brand-50);
+  border: 1px solid var(--brand-100);
+  border-radius: var(--radius-full);
+}
+
+/* Applicants */
+
+.applicants-section {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.applicants-title {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.applicants-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.applicant-name {
+  padding: 0.4rem 0.8rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--brand-600);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.applicant-name:hover {
+  color: var(--brand-700);
+  background-color: var(--brand-50);
+  border-color: var(--brand-200);
+}
+
+.applicants-empty {
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+}
+
+/* Applicant profile modal */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background-color: rgba(27, 32, 54, 0.5);
+  animation: modal-fade 0.15s ease-out;
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: var(--space-5);
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: left;
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

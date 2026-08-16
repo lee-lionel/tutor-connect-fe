@@ -1,29 +1,111 @@
+/* Auth page — hosts both the Login and SignUp forms.
+   The form styling lives here because AuthPage is the only thing that
+   renders either form, so both are guaranteed to pick it up. */
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) var(--space-4);
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, var(--brand-50), transparent 70%),
+    var(--bg);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-6);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Brand header */
+
+.auth-brand {
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.auth-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand-500), var(--brand-700));
+  border-radius: var(--radius-md);
+}
+
+.auth-brand-name {
+  font-size: var(--text-2xl);
+}
+
+.auth-brand-sub {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* Forms */
+
+.login-form,
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: var(--space-4);
+}
+
+.input-group > label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.input-group input,
+.input-group select {
+  margin-top: var(--space-2);
+}
+
+/* Switch between sign in / sign up */
+
+.auth-switch {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.toggle-text {
+  margin-left: var(--space-2);
+  font-weight: 600;
+  color: var(--brand-600);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.toggle-text:hover {
+  color: var(--brand-700);
+}
+
+@media (max-width: 600px) {
+  .auth-card {
+    padding: var(--space-5);
   }
-  
-  .login-signup {
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 5px;
-  }
-  
-  .toggle-text {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  
-  .toggle-text:hover {
-    color: #007bff; 
-  }
-  
-  
+}
