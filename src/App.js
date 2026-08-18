@@ -24,16 +24,22 @@ function App() {
       {user ? (
         <Router>
           <Navbar setUser={setUser}/>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/create-post" element={<CreatePost />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
-            <Route path="/view" element={<View />} />
-          </Routes>
+          {/* A main landmark, so assistive tech can skip the nav straight to
+              the page. Both branches need one — signed out is a page too. */}
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/edit-profile" element={<EditProfile />} />
+              <Route path="/view" element={<View />} />
+            </Routes>
+          </main>
         </Router>
       ) : (
-        <AuthPage setUser={setUser}/>
+        <main>
+          <AuthPage setUser={setUser}/>
+        </main>
       )}
     </div>
   );
