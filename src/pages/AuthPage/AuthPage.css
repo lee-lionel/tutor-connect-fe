@@ -109,3 +109,31 @@
     padding: var(--space-5);
   }
 }
+
+
+/* ============================================================
+   Auth feedback
+   ============================================================ */
+
+.auth-error,
+.auth-waking {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.auth-error {
+  color: #b3232f;
+  font-weight: 600;
+}
+
+/* The API sleeps on a free instance; saying so beats a dead button. */
+.auth-waking {
+  color: #6b6470;
+}
+
+.auth-page-button:disabled {
+  cursor: progress;
+  opacity: 0.65;
+}

@@ -8,10 +8,17 @@ import Profile from "./pages/Profile/Profile";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import View from "./pages/View";
 import { getUser } from "./utilities/users-service";
-import { useState } from "react";
+import { wakeServer } from "./utilities/wake-server";
+import { useEffect, useState } from "react";
 
 function App() {
   const [user, setUser] = useState(getUser());
+
+  // Start waking the sleeping API while the user is still reading the page.
+  useEffect(() => {
+    wakeServer();
+  }, []);
+
   return (
     <div className="App">
       {user ? (

@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as userApi from '../../utilities/users-service'
 
 
@@ -13,6 +12,12 @@ const SignUp = (props) => {
     phoneNumber: '',
     role: 'tutor',
   })
+  const [pending, setPending] = useState(false)
+  const [slow, setSlow] = useState(false)
+  const [error, setError] = useState('')
+  const slowTimer = useRef(null)
+
+  useEffect(() => () => clearTimeout(slowTimer.current), [])
 
   function handleChange(e) {
     const inputValue = e.target.value
@@ -24,21 +29,35 @@ const SignUp = (props) => {
     } else {
     setUserInput({ ...userInput, [e.target.name]: inputValue });
     }
+    setError('')
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
+    if (pending) return
+
+    /* Inline, not alert(): a modal dialog blocks the page and loses the
+       field it is complaining about. */
     if (userInput.phoneNumber.length !== 8) {
-      return alert('Enter an 8 digit phone number')
+      return setError('Enter an 8 digit phone number')
     }
     if (userInput.password.length < 5) {
-      return alert('Password must be at least 5 characters')
+      return setError('Password must be at least 5 characters')
     }
+
+    setPending(true)
+    setError('')
+    slowTimer.current = setTimeout(() => setSlow(true), 2500)
+
     try {
         const user = await userApi.signUp(userInput)
         setUser(user)
-    } catch(error){
-        alert(error.message)
+    } catch(err){
+        setError(err.message || 'Could not create the account. Please try again.')
+    } finally {
+        clearTimeout(slowTimer.current)
+        setSlow(false)
+        setPending(false)
     }
   }
   
@@ -84,7 +103,18 @@ const SignUp = (props) => {
         </select>
       </label>
       </div>
-      <button className="auth-page-button">Sign Up</button>
+      {error && <p className="auth-error" role="alert">{error}</p>}
+
+      {slow && (
+        <p className="auth-waking" role="status">
+          Waking the server — it sleeps when nobody's using it. This can take
+          up to half a minute the first time.
+        </p>
+      )}
+
+      <button className="auth-page-button" disabled={pending}>
+        {pending ? 'Creating account…' : 'Sign Up'}
+      </button>
     </form>
   );
 };
